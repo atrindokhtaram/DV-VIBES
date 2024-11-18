@@ -1,11 +1,3 @@
-import os
-import tempfile
-import requests
-from gtts import gTTS
-from pyrogram import Client, filters
-from pyrogram.enums import ChatAction
-from ANWIVIBES import app
-
 @app.on_message(filters.command("siri"))
 async def chat_annie(app, message):
     try:
@@ -36,6 +28,7 @@ async def chat_annie(app, message):
             if response.status_code == 200:
                 try:
                     response_data = response.json()  # Parse JSON response
+                    print("API Response Data:", response_data)  # Debug API response structure
                     response_text = response_data.get("response", "No valid response from API.")
                 except ValueError:
                     response_text = "Sorry, the API returned an unexpected response format."
@@ -47,6 +40,9 @@ async def chat_annie(app, message):
 
         # Fallback for invalid response
         response_text = response_text if "API returned" not in response_text else "Sorry, I couldn't process your request. Please try again later."
+
+        # Debugging: Final response text to send back
+        print("Final Response Text:", response_text)
 
         # Convert response text to speech
         try:
