@@ -29,7 +29,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 
 # You can paste your cookies to https://batbin.me, save them, and get a link to paste here
-COOKIE = getenv("COOKIE", None)
+COOKIES = getenv("COOKIES", None)
 
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 600000))
 
