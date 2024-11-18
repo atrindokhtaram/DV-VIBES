@@ -18,7 +18,7 @@ async def chat_annie(app, message):
 
         # Get user query
         query = message.text.split(' ', 1)[1].strip()
-        if not query:  # Check if query is empty
+        if not query:
             await message.reply_text("Please provide a valid query.")
             return
 
@@ -28,29 +28,25 @@ async def chat_annie(app, message):
         # Make API request
         try:
             response = requests.post(f"https://chatwithai.codesearch.workers.dev/?chat={query}", timeout=10)
-            
+
             # Debugging: Show response status code and text
             print("Status Code:", response.status_code)
             print("Response Text:", response.text)
 
-            # Check if response is valid
             if response.status_code == 200:
                 try:
                     response_data = response.json()  # Parse JSON response
                     response_text = response_data.get("response", "No valid response from API.")
-                except ValueError as e:
-                    print("JSON Parsing Error:", str(e))
-                    response_text = "API returned invalid JSON format."
+                except ValueError:
+                    response_text = "Sorry, the API returned an unexpected response format."
             else:
-                print(f"API Error: {response.status_code} - {response.text}")
                 response_text = f"Error: {response.status_code} - {response.text}"
 
         except requests.exceptions.RequestException as e:
-            print("Request Exception:", str(e))
             response_text = f"Request failed: {str(e)}"
 
-        # Debugging: Final response text to send back
-        print("Final Response Text:", response_text)
+        # Fallback for invalid response
+        response_text = response_text if "API returned" not in response_text else "Sorry, I couldn't process your request. Please try again later."
 
         # Convert response text to speech
         try:
