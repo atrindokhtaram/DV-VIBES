@@ -1,3 +1,11 @@
+import os
+import tempfile
+import requests
+from gtts import gTTS
+from pyrogram import Client, filters
+from pyrogram.enums import ChatAction
+from ANWIVIBES import app
+
 @app.on_message(filters.command("siri"))
 async def chat_annie(app, message):
     try:
