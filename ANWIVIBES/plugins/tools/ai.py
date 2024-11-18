@@ -18,15 +18,9 @@ async def chat_annie(app, message):
 
         query = message.text.split(' ', 1)[1]
 
-        # Prepare payload for API
-        payload = {
-            "model": "chatgpt-4",
-            "input": query
-        }
-
-        # Make the API request
+        # Send query as a parameter in the URL
         try:
-            response = requests.post("https://chatwithai.codesearch.workers.dev/?chat=", json=payload, timeout=10)
+            response = requests.post(f"https://chatwithai.codesearch.workers.dev/?chat={query}", timeout=10)
 
             if response.status_code == 200:
                 response_data = response.json()
