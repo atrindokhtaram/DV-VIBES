@@ -1,6 +1,6 @@
 import os
 import tempfile
-import requests  # To make API requests
+import requests
 from gtts import gTTS
 from pyrogram import Client, filters
 from pyrogram.enums import ChatAction
@@ -17,27 +17,32 @@ async def chat_annie(app, message):
             return
 
         query = message.text.split(' ', 1)[1]
-        
-        # Prepare the API payload
+
+        # Prepare payload for API
         payload = {
-            "model": "chatgpt-4",  # Specify the model
-            "input": query        # User's query
+            "model": "chatgpt-4",
+            "input": query
         }
 
-        # Make the API request directly with the URL
-        response = requests.post("https://chatwithai.codesearch.workers.dev/?chat=", json=payload)
-        
-        if response.status_code == 200:
-            response_data = response.json()
-            response_text = response_data.get("response", "I couldn't understand that.")
-        else:
-            await message.reply_text("Sorry, I couldn't process your request. Please try again later.")
+        # Make the API request
+        try:
+            response = requests.post("https://chatwithai.codesearch.workers.dev/?chat=", json=payload, timeout=10)
+
+            if response.status_code == 200:
+                response_data = response.json()
+                response_text = response_data.get("response", "I couldn't understand that.")
+            else:
+                await message.reply_text(f"API Error: {response.status_code} - {response.text}")
+                return
+
+        except requests.exceptions.RequestException as e:
+            await message.reply_text(f"API Request Failed: {str(e)}")
             return
 
-        # Convert text to speech
+        # Convert response text to speech (default language: English)
         try:
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_file:
-                tts = gTTS(response_text, lang='en')
+                tts = gTTS(response_text, lang="en")  # Default language set to English
                 tts.save(temp_file.name)
                 await app.send_voice(chat_id=message.chat.id, voice=temp_file.name)
         finally:
