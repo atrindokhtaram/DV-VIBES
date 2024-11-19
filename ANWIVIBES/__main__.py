@@ -13,7 +13,7 @@ from pyrogram import idle
 
 import config
 from config import BANNED_USERS
-from ANWIVIBES import HELPABLE, LOGGER, app, userbot
+from ANWIVIBES import LOGGER, app, userbot
 from ANWIVIBES.core.call import VIP
 from ANWIVIBES.plugins import ALL_MODULES
 from ANWIVIBES.utils.database import get_banned_users, get_gbanned
