@@ -32,6 +32,7 @@ async def start_pm(client, message: Message, _):
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
             keyboard = help_pannel(_)
+            
             return await message.reply_photo(
                 photo=config.START_IMG_URL,
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
@@ -84,8 +85,14 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+        if message.chat.photo:
+            userss_photo = await app.download_media(message.chat.photo.big_file_id)
+        else:
+            userss_photo = config.START_IMG_URL
+            if userss_photo:
+                chat_photo = userss_photo
         await message.reply_photo(
-            photo=config.START_IMG_URL,
+            photo=chat_photo,
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
         )
@@ -101,8 +108,14 @@ async def start_pm(client, message: Message, _):
 async def start_gp(client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
+    if message.chat.photo:
+        userss_photo = await app.download_media(message.chat.photo.big_file_id)
+    else:
+        userss_photo = config.START_IMG_URL
+        if userss_photo:
+            chat_photo = userss_photo
     await message.reply_photo(
-        photo=config.START_IMG_URL,
+        photo=chat_photo,
         caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
