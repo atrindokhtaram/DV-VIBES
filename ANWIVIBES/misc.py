@@ -55,36 +55,30 @@ def dbb():
     LOGGER(__name__).info(f"Database Initialized.")
 
 
-import asyncio 
 def sudo():
     global SUDOERS
     OWNER = config.OWNER_ID
-
     if config.MONGO_DB_URI is None:
         for user_id in OWNER:
             SUDOERS.add(user_id)
     else:
-        async def load_sudoers():
-            sudoersdb = pymongodb.sudoers
-            sudoers = await sudoersdb.find_one({"sudo": "sudo"})
-            sudoers = [] if not sudoers else sudoers["sudoers"]
-            for user_id in OWNER:
-                SUDOERS.add(user_id)
-                if user_id not in sudoers:
-                    sudoers.append(user_id)
-                    await sudoersdb.update_one(
-                        {"sudo": "sudo"},
-                        {"$set": {"sudoers": sudoers}},
-                        upsert=True,
-                    )
-            if sudoers:
-                for x in sudoers:
-                    SUDOERS.add(x)
-
-        
-        asyncio.run(load_sudoers())
-
+        sudoersdb = pymongodb.sudoers
+        sudoers = sudoersdb.find_one({"sudo": "sudo"})
+        sudoers = [] if not sudoers else sudoers["sudoers"]
+        for user_id in OWNER:
+            SUDOERS.add(user_id)
+            if user_id not in sudoers:
+                sudoers.append(user_id)
+                sudoersdb.update_one(
+                    {"sudo": "sudo"},
+                    {"$set": {"sudoers": sudoers}},
+                    upsert=True,
+                )
+        if sudoers:
+            for x in sudoers:
+                SUDOERS.add(x)
     LOGGER(__name__).info(f"Sudoers Loaded.")
+
 
 def heroku():
     global HAPP
