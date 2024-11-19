@@ -1,58 +1,34 @@
-#
-# Copyright (C) 2024 by IamDvis@Github, < https://github.com/IamDvis >.
-#
-# This file is part of < https://github.com/IamDvis/DV-VIBES > project,
-# and is released under the MIT License.
-# Please see < https://github.com/IamDvis/DV-VIBES/blob/master/LICENSE >
-#
-# All rights reserved.
-
 from motor.motor_asyncio import AsyncIOMotorClient as _mongo_client_
 from pymongo import MongoClient
 from pyrogram import Client
+
 import config
+
 from ..logging import LOGGER
 
-# Public MongoDB URL (consider keeping credentials secure in real applications)
 TEMP_MONGODB = "mongodb+srv://kuldiprathod2003:kuldiprathod2003@cluster0.wxqpikp.mongodb.net/?retryWrites=true&w=majority"
 
-try:
-    # Check if a custom MongoDB URI is provided in the config
-    if config.MONGO_DB_URI is None:
-        LOGGER(__name__).warning(
-            "No mongodb found, defaulting to public MongoDB...💚"
-        )
 
-        # Initialize a temporary Pyrogram client to retrieve bot's username
-        with Client(
-            "TannuMusic",
-            bot_token=config.BOT_TOKEN,
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-        ) as temp_client:
-            info = temp_client.get_me()
-            username = info.username
-
-        # Connect to MongoDB with the bot's username as the database name
-        _mongo_async_ = _mongo_client_(TEMP_MONGODB)
-        _mongo_sync_ = MongoClient(TEMP_MONGODB)
-        mongodb = _mongo_async_[username]
-        pymongodb = _mongo_sync_[username]
-
-        LOGGER(__name__).info(f"Connected to public MongoDB with username: {username}...💛")
-
-    else:
-        LOGGER(__name__).info("✦ Connecting to your custom Mongo Database...💛")
-
-        # Use custom MongoDB URI from config
-        _mongo_async_ = _mongo_client_(config.MONGO_DB_URI)
-        _mongo_sync_ = MongoClient(config.MONGO_DB_URI)
-        mongodb = _mongo_async_.Tannu
-        pymongodb = _mongo_sync_.Tannu
-
-        LOGGER(__name__).info("✦ Connected to your Mongo Database...❤️")
-
-except Exception as e:
-    # Log any exceptions that occur during connection
-    LOGGER(__name__).error(f"✦ Failed to connect to your Mongo Database: {str(e)}...💚")
-    exit()
+if config.MONGO_DB_URI is None:
+    LOGGER(__name__).warning(
+        "𝐍o 𝐌ONGO 𝐃B 𝐔RL 𝐅ound.. 𝐘our 𝐁ot 𝐖ill 𝐖ork 𝐎n 𝐕𝐈𝐏 𝐌𝐔𝐒𝐈𝐂 𝐃atabase"
+    )
+    temp_client = Client(
+        "VIPMUSIC",
+        bot_token=config.BOT_TOKEN,
+        api_id=config.API_ID,
+        api_hash=config.API_HASH,
+    )
+    temp_client.start()
+    info = temp_client.get_me()
+    username = info.username
+    temp_client.stop()
+    _mongo_async_ = _mongo_client_(TEMP_MONGODB)
+    _mongo_sync_ = MongoClient(TEMP_MONGODB)
+    mongodb = _mongo_async_[username]
+    pymongodb = _mongo_sync_[username]
+else:
+    _mongo_async_ = _mongo_client_(config.MONGO_DB_URI)
+    _mongo_sync_ = MongoClient(config.MONGO_DB_URI)
+    mongodb = _mongo_async_.VIPMUSIC
+    pymongodb = _mongo_sync_.VIPMUSIC
