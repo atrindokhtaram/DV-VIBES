@@ -37,8 +37,9 @@ DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 600000))
 LOGGER_ID = int(getenv("LOGGER_ID"))
 
 #❖ Get this value from @MissRose_bot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID"))
-
+OWNER_ID = list(
+    map(int, getenv("OWNER_ID", "1808943146").split())
+)
 #❖  Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME", None)
 
