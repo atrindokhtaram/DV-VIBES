@@ -52,8 +52,8 @@ async def init():
         importlib.import_module("ANWIVIBES.plugins" + all_module)
     LOGGER("ANWIVIBES.plugins").info("✦ Successfully Imported Modules...💞")
     await userbot.start()
-    await VIP.start()
-    await VIP.decorators()
+    await ANWI.start()
+    await ANWI.decorators()
     LOGGER("ANWIVIBES").info("VIPMUSIC STARTED SUCCESSFULLY 🕊️")
     await idle()
 
