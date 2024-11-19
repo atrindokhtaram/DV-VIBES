@@ -19,8 +19,9 @@ from pytgcalls.__version__ import __version__ as pytgver
 
 import config
 from ANWIVIBES import app
+from ANWIVIBES.core.mongo import mongodb
 from ANWIVIBES.core.userbot import assistants
-from ANWIVIBES.misc import SUDOERS, mongodb
+from ANWIVIBES.misc import SUDOERS
 from ANWIVIBES.plugins import ALL_MODULES
 from ANWIVIBES.utils.database import get_served_chats, get_served_users, get_sudoers
 from ANWIVIBES.utils.decorators.language import language, languageCB
