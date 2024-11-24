@@ -11,16 +11,16 @@ API_ID = getenv("API_ID", None)
 API_HASH = getenv("API_HASH", None)
 
 #❖ Add Owner Username without @ 
-OWNER_USERNAME = getenv("OWNER_USERNAME", "OfficialDurgesh")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "rainbow_dragonn")
 
 #❖  Get Your bot username
-BOT_USERNAME = getenv("BOT_USERNAME", "AnwiVibesBot")
+BOT_USERNAME = getenv("BOT_USERNAME", "MUSICRAINBOW4_BOT")
 
 #❖  Don't Add style font 
-BOT_NAME = getenv("BOT_NAME", "ANWI VIBES")
+BOT_NAME = getenv("BOT_NAME", "mohamusic")
 
 #❖ get Your Assistant User name
-ASSUSERNAME = getenv("ASSUSERNAME", "ANWIS VIBER")
+ASSUSERNAME = getenv("ASSUSERNAME", "helperrainbow")
 
 #❖ Get your token from @BotFather on Telegram.
 BOT_TOKEN = getenv("BOT_TOKEN")
@@ -38,7 +38,7 @@ LOGGER_ID = int(getenv("LOGGER_ID"))
 
 #❖ Get this value from @MissRose_bot on Telegram by /id
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "1808943146").split())
+    map(int, getenv("OWNER_ID", "6864201346").split())
 )
 #❖  Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME", None)
@@ -57,8 +57,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  #❖ Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/ai_image_junction")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/+7ehnJA3aMb84OGNl")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/rainbow_tm")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/MUSICPLAYER_IRANIAN")
 
 #❖ Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
@@ -96,7 +96,7 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://files.catbox.moe/6jv7ky.jpg"
+    "START_IMG_URL", "https://i.imgur.com/VtVszRy.jpeg"
 )
 PING_IMG_URL = getenv(
     "PING_IMG_URL", "https://envs.sh/qEB.jpg"
