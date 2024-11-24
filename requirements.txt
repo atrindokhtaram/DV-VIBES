@@ -3,6 +3,7 @@ pyromod
 openai
 aiofiles
 aiohttp
+pydub
 asyncio
 beautifulsoup4
 dnspython
